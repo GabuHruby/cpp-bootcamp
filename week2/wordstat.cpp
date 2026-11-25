@@ -4,13 +4,26 @@ namespace wordstat {
 
 Counts count(std::string_view text) {
   Counts counts{};
+  int whitespace = 0;
+  int first_word = 1;
   for (const char c : text) {
     counts.chars++;
-    if (c == ' ' || c == '\n' || c == '\t') {
-      counts.words++;
-      if (c == '\n') {
-        counts.lines++;
+    if (first_word) {
+      if (c != ' ' && c != '\n' && c != '\t') {
+        counts.words++;
       }
+      first_word = 0;
+    }
+
+    if (c == ' ' || c == '\n' || c == '\t') {
+      whitespace = 1;
+    } else if (whitespace == 1) {
+      whitespace = 0;
+      counts.words++;
+    }
+
+    if (c == '\n') {
+      counts.lines++;
     }
   }
   return counts;
