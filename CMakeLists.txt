@@ -5,3 +5,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 add_executable(week1 week1/main.cpp)
+add_executable(week2 week2/main.cpp week2/wordstat.cpp)
